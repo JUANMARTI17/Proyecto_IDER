@@ -13,7 +13,7 @@ CREATE TABLE Usuario (
     identificacion VARCHAR(20) NOT NULL,  -- CC, TI, etc.
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
-    fechaCreacion DATE DEFAULT CURRENT_DATE,
+    fechaCreacion DATE DEFAULT,
     estado VARCHAR(20) NOT NULL,  -- activo, inactivo
     email VARCHAR(100) NOT NULL,
     pass VARCHAR(100) NOT NULL,
@@ -27,7 +27,7 @@ select * from Usuario;
 -- Crear tabla Encuesta
 CREATE TABLE Encuesta (
     id SERIAL PRIMARY KEY,  -- id auto-incremental
-    fecha_Creacion DATE DEFAULT CURRENT_DATE,
+    fecha_Creacion DATE DEFAULT,
     fecha_Cierre DATE,
     titulo VARCHAR(150) NOT NULL,
     descripcion TEXT,
