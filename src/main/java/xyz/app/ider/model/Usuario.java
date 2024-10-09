@@ -2,13 +2,15 @@ package xyz.app.ider.model;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Usuario")
 public class Usuario {
 	
-	 @Id
+	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private int id;
 
@@ -21,7 +23,8 @@ public class Usuario {
 	    @Column(nullable = false, length = 50)
 	    private String apellido;
 
-	    @Column(name = "fechaCreacion", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+	    @Column(name = "fechaCreacion", nullable = false)
+	    @CreationTimestamp
 	    private Date fechaCreacion;
 
 	    @Column(nullable = false, length = 20)

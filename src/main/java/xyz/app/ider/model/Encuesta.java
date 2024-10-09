@@ -2,6 +2,8 @@ package xyz.app.ider.model;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.*;
 
 
@@ -13,7 +15,8 @@ public class Encuesta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "fecha_Creacion", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @Column(name = "fecha_Creacion", nullable = false)
+    @CreationTimestamp
     private Date fechaCreacion;
 
     @Column(name = "fecha_Cierre")
