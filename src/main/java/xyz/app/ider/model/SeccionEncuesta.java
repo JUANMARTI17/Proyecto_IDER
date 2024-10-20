@@ -3,7 +3,7 @@ package xyz.app.ider.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "SeccionEncuesta")
+@Table(name = "seccionencuesta")
 public class SeccionEncuesta {
 	
     @Id
@@ -13,8 +13,8 @@ public class SeccionEncuesta {
     @Column(nullable = false, length = 150)
     private String titulo;
 
-    @ManyToOne
-    @JoinColumn(name = "id_Encuesta", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)  
+    @JoinColumn(name = "id_encuesta")
     private Encuesta encuesta;
 
 	public SeccionEncuesta() {
