@@ -18,62 +18,61 @@ public class Opciones {
 
     @Column(nullable = false)
     private boolean seleccionable;
-
+    
     @ManyToOne
     @JoinColumn(name = "id_pregunta", referencedColumnName = "id")
     private Pregunta pregunta;
 
-	public Opciones() {
-		super();
-	}
 
-	public Opciones(int id, String tipo, String texto, boolean seleccionable, Pregunta pregunta) {
-		super();
-		this.id = id;
-		this.tipo = tipo;
-		this.texto = texto;
-		this.seleccionable = seleccionable;
-		this.pregunta = pregunta;
-	}
 
-	public int getId() {
-		return id;
-	}
+    // Constructores
+    public Opciones() {}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Opciones(String tipo, String texto, boolean seleccionable, Pregunta pregunta) {
+        this.tipo = tipo;
+        this.texto = texto;
+        this.seleccionable = seleccionable;
+        this.pregunta = pregunta;
+    }
 
-	public String getTipo() {
-		return tipo;
-	}
+    // Getters y setters
+    public int getId() {
+        return id;
+    }
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getTexto() {
-		return texto;
-	}
+    public String getTipo() {
+        return tipo;
+    }
 
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-	public boolean isSeleccionable() {
-		return seleccionable;
-	}
+    public String getTexto() {
+        return texto;
+    }
 
-	public void setSeleccionable(boolean seleccionable) {
-		this.seleccionable = seleccionable;
-	}
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
 
-	public Pregunta getPregunta() {
-		return pregunta;
-	}
+    public boolean isSeleccionable() {
+        return seleccionable;
+    }
 
-	public void setPregunta(Pregunta pregunta) {
-		this.pregunta = pregunta;
-	}
-	
+    public void setSeleccionable(boolean seleccionable) {
+        this.seleccionable = seleccionable;
+    }
+
+    public Pregunta getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(Pregunta pregunta) {
+        this.pregunta = pregunta;
+    }
 }

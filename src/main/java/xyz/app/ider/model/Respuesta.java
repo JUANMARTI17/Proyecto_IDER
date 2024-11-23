@@ -1,5 +1,7 @@
 package xyz.app.ider.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,23 +16,37 @@ public class Respuesta {
     private String respuesta;
 
     @ManyToOne
+    @JoinColumn(name = "id_Usuario", referencedColumnName = "id")
+    private Usuario usuario;
+
+    @ManyToOne
     @JoinColumn(name = "id_SeccionEncuesta", referencedColumnName = "id")
     private SeccionEncuesta seccionEncuesta;
-
+    
     @ManyToOne
     @JoinColumn(name = "id_Pregunta", referencedColumnName = "id")
     private Pregunta pregunta;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "respuesta_opciones",  
+        joinColumns = @JoinColumn(name = "id_respuesta"),
+        inverseJoinColumns = @JoinColumn(name = "id_opcion")
+    )
+    private List<Opciones> opciones;
 
 	public Respuesta() {
 		super();
 	}
 
-	public Respuesta(int id, String respuesta, SeccionEncuesta seccionEncuesta, Pregunta pregunta) {
+	public Respuesta(String respuesta, Usuario usuario, SeccionEncuesta seccionEncuesta, Pregunta pregunta,
+			List<Opciones> opciones) {
 		super();
-		this.id = id;
 		this.respuesta = respuesta;
+		this.usuario = usuario;
 		this.seccionEncuesta = seccionEncuesta;
 		this.pregunta = pregunta;
+		this.opciones = opciones;
 	}
 
 	public int getId() {
@@ -49,6 +65,14 @@ public class Respuesta {
 		this.respuesta = respuesta;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public SeccionEncuesta getSeccionEncuesta() {
 		return seccionEncuesta;
 	}
@@ -64,5 +88,12 @@ public class Respuesta {
 	public void setPregunta(Pregunta pregunta) {
 		this.pregunta = pregunta;
 	}
-    
+
+	public List<Opciones> getOpciones() {
+		return opciones;
+	}
+
+	public void setOpciones(List<Opciones> opciones) {
+		this.opciones = opciones;
+	} 
 }

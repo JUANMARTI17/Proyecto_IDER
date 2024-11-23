@@ -22,6 +22,16 @@ public class UsuarioService implements UsuarioRepository {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Override
+	public Optional<Usuario> findById(Integer id) { 	//En uso findById
+		return usuarioRepository.findById(id);
+	}
+	
+	@Override
+	public List<Usuario> findAll() {		//EN USO findAll()		
+		return usuarioRepository.findAll();
+	}
+	
 	public Optional<Usuario> login(String email, String password) {  //Busca el usuario por correo y contraseña
         Optional<Usuario> usuarioOpt = usuarioRepository.findAll().stream()
                 .filter(usuario -> usuario.getEmail().equals(email) && usuario.getPass().equals(password))
@@ -31,7 +41,7 @@ public class UsuarioService implements UsuarioRepository {
 	
 	public Usuario registrarUsuario(Usuario nuevoUsuario) {	    
 	    Roles rolPorDefecto = new Roles(); 
-	    rolPorDefecto.setId_rol(2); 
+	    rolPorDefecto.setId_rol(1); 
 
 	    nuevoUsuario.setRol(rolPorDefecto);
 	    return usuarioRepository.save(nuevoUsuario); 
@@ -117,11 +127,6 @@ public class UsuarioService implements UsuarioRepository {
 		return null;
 	}
 
-	@Override
-	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Usuario> findAllById(Iterable<Integer> ids) {
@@ -135,11 +140,7 @@ public class UsuarioService implements UsuarioRepository {
 		return null;
 	}
 
-	@Override
-	public Optional<Usuario> findById(Integer id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
+	
 
 	@Override
 	public boolean existsById(Integer id) {
