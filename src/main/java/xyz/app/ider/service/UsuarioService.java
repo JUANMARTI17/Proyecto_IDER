@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import xyz.app.ider.model.Roles;
@@ -32,12 +34,13 @@ public class UsuarioService implements UsuarioRepository {
 		return usuarioRepository.findAll();
 	}
 	
-	public Optional<Usuario> login(String email, String password) {  //Busca el usuario por correo y contraseña
-        Optional<Usuario> usuarioOpt = usuarioRepository.findAll().stream()
-                .filter(usuario -> usuario.getEmail().equals(email) && usuario.getPass().equals(password))
-                .findFirst();
-        return usuarioOpt;
-    }
+	// En UsuarioService.java
+	public Optional<Usuario> login(String email, String password) {
+	    return usuarioRepository.findAll().stream()
+	        .filter(usuario -> usuario.getEmail().equals(email) && usuario.getPass().equals(password))
+	        .findFirst();  // Devolvemos el usuario si se encuentra
+	}
+
 	
 	public Usuario registrarUsuario(Usuario nuevoUsuario) {	    
 	    Roles rolPorDefecto = new Roles(); 
@@ -53,6 +56,27 @@ public class UsuarioService implements UsuarioRepository {
 	            .findFirst();
 	}
 
+	
+	public Usuario actualizarUsuario(Integer id, Usuario usuarioActualizado) {
+	    // Verificar si el usuario existe
+	    Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+	    if (usuarioOpt.isPresent()) {
+	        Usuario usuario = usuarioOpt.get();
+	        
+	        // Actualizar los campos del usuario
+	        usuario.setIdentificacion(usuarioActualizado.getIdentificacion());
+	        usuario.setNombre(usuarioActualizado.getNombre());
+	        usuario.setApellido(usuarioActualizado.getApellido());
+	        usuario.setEmail(usuarioActualizado.getEmail());
+	        usuario.setPass(usuarioActualizado.getPass());
+	        usuario.setEstado(usuarioActualizado.getEstado());
+	        usuario.setRol(usuarioActualizado.getRol());  // Si necesitas actualizar el rol también
+	        
+	        // Guardar el usuario actualizado
+	        return usuarioRepository.save(usuario);
+	    }
+	    return null;  // Retornar null si el usuario no existe
+	}
 
 
 	@Override
