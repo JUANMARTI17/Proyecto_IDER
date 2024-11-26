@@ -44,6 +44,20 @@ public class PreguntaService implements PreguntaRepository {
 	                        pregunta.getSeccionEncuesta().getEncuesta().getId() == encuestaId)
 	                .toList();
 	    }
+	    
+	    public Pregunta actualizarPregunta(int id, Pregunta preguntaActualizada) {
+	        Optional<Pregunta> preguntaExistente = preguntaRepository.findById(id);
+	        if (preguntaExistente.isPresent()) {
+	            Pregunta pregunta = preguntaExistente.get();
+	            pregunta.setTexto(preguntaActualizada.getTexto());
+	            pregunta.setTipo(preguntaActualizada.getTipo());
+	            pregunta.setSeccionEncuesta(preguntaActualizada.getSeccionEncuesta());
+	            return preguntaRepository.save(pregunta);
+	        } else {
+	            throw new RuntimeException("Pregunta no encontrada con el id " + id);
+	        }
+	    }
+
 
 	@Override
 	public void flush() {

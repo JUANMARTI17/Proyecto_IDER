@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,4 +50,16 @@ public class EncuestaRest {
 	        encuestaService.eliminarEncuesta(id);
 	        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	    }
+	    
+	 // Método en EncuestaRest para actualizar una encuesta
+	    @PutMapping("/actualizar/{id}")
+	    public ResponseEntity<Encuesta> actualizarEncuesta(@PathVariable int id, @RequestBody Encuesta encuestaActualizada) {
+	        Encuesta encuesta = encuestaService.actualizarEncuesta(id, encuestaActualizada);
+	        if (encuesta != null) {
+	            return ResponseEntity.ok(encuesta); // Si la encuesta se actualizó correctamente
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Si no se encuentra la encuesta
+	        }
+	    }
+
 }

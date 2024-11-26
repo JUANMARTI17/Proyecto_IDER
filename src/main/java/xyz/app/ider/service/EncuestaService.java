@@ -40,6 +40,27 @@ public class EncuestaService implements EncuestaRepository {
     public void eliminarEncuesta(int id) {	 // Método para eliminar una encuesta por su id
         encuestaRepository.deleteById(id);
     }
+    
+ // Método en EncuestaService para actualizar una encuesta
+    public Encuesta actualizarEncuesta(int id, Encuesta encuestaActualizada) {
+        // Verificar si la encuesta con el id dado existe
+        Optional<Encuesta> encuestaExistente = encuestaRepository.findById(id);
+        if (encuestaExistente.isPresent()) {
+            Encuesta encuesta = encuestaExistente.get();
+            
+            // Actualizar los campos de la encuesta existente con los datos de la nueva encuesta
+            encuesta.setTitulo(encuestaActualizada.getTitulo());
+            encuesta.setDescripcion(encuestaActualizada.getDescripcion());
+            encuesta.setFechaCierre(encuestaActualizada.getFechaCierre());
+            encuesta.setEstado(encuestaActualizada.getEstado());
+            encuesta.setUsuario(encuestaActualizada.getUsuario()); // Si el usuario también se actualiza
+            
+            // Guardar la encuesta actualizada en el repositorio
+            return encuestaRepository.save(encuesta);
+        }
+        return null; // Retorna null si la encuesta no existe
+    }
+
 	
 	@Override
 	public void flush() {

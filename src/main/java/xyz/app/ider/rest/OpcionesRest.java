@@ -61,4 +61,11 @@ public class OpcionesRest {
     public void eliminarOpcion(@PathVariable int id) {
         opcionesService.eliminarOpcion(id);
     }
+    
+ // Actualizar una opción
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<Opciones> actualizarOpcion(@PathVariable int id, @RequestBody Opciones opcionActualizada) {
+        Opciones opcion = opcionesService.actualizarOpcion(id, opcionActualizada);
+        return ResponseEntity.ok(opcion);
+    }
 }

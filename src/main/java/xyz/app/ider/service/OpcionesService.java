@@ -33,4 +33,17 @@ public class OpcionesService {
     public void eliminarOpcion(int id) {
         opcionesRepository.deleteById(id);
     }
+    
+ // Actualizar opción
+    public Opciones actualizarOpcion(int id, Opciones opcionActualizada) {
+        return opcionesRepository.findById(id)
+            .map(opcion -> {
+                opcion.setTipo(opcionActualizada.getTipo());
+                opcion.setTexto(opcionActualizada.getTexto());
+                opcion.setSeleccionable(opcionActualizada.isSeleccionable());
+                opcion.setPregunta(opcionActualizada.getPregunta()); // Si es necesario actualizar la pregunta
+                return opcionesRepository.save(opcion);
+            })
+            .orElseThrow(() -> new RuntimeException("Opción no encontrada con ID: " + id));
+    }
 }
