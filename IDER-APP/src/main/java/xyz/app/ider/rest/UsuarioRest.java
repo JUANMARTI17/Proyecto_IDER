@@ -47,15 +47,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 		    Optional<Usuario> usuarioOpt = usuarioService.login(usuario.getEmail(), usuario.getPass());
 
 		    if (usuarioOpt.isPresent()) {
-		        Long userId = (long) usuarioOpt.get().getId();
+		        Usuario user = usuarioOpt.get(); // Obtener el usuario
 		        Map<String, Object> response = new HashMap<>();
 		        response.put("message", "Login successful");
-		        response.put("userId", userId);
-		        return ResponseEntity.ok(response); // Enviar el ID del usuario como parte de la respuesta
+		        response.put("userId", user.getId());
+		        response.put("role", user.getRol().getNombre_rol()); // Incluye el rol del usuario
+		        return ResponseEntity.ok(response); // Retorna la respuesta con el mensaje, ID y rol
 		    } else {
 		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Invalid credentials"));
 		    }
 		}
+
 		
 		@PostMapping("/registrar")
 		public ResponseEntity<Usuario> registrar(@RequestBody Usuario nuevoUsuario) {
@@ -79,5 +81,4 @@ import org.springframework.web.bind.annotation.RequestBody;
 		    }
 		}
 
-	
 	}
