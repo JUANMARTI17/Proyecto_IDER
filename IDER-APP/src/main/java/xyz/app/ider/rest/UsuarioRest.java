@@ -80,5 +80,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 		        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // Si el usuario no existe
 		    }
 		}
+		
+		@GetMapping("/por-rol/{rolId}")
+		public ResponseEntity<List<Usuario>> getUsuariosByRol(@PathVariable Integer rolId) {
+		    List<Usuario> usuarios = usuarioService.findUsuariosByRolId(rolId);
+
+		    if (usuarios.isEmpty()) {
+		        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		    }
+
+		    return ResponseEntity.ok(usuarios);
+		}
 
 	}

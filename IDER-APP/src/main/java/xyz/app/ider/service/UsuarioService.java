@@ -44,7 +44,7 @@ public class UsuarioService implements UsuarioRepository {
 	
 	public Usuario registrarUsuario(Usuario nuevoUsuario) {	    
 	    Roles rolPorDefecto = new Roles(); 
-	    rolPorDefecto.setId_rol(1); 
+	    rolPorDefecto.setId_rol(2); 
 
 	    nuevoUsuario.setRol(rolPorDefecto);
 	    return usuarioRepository.save(nuevoUsuario); 
@@ -78,6 +78,11 @@ public class UsuarioService implements UsuarioRepository {
 	    return null;  // Retornar null si el usuario no existe
 	}
 
+	public List<Usuario> findUsuariosByRolId(Integer rolId) {
+	    return usuarioRepository.findAll().stream()
+	        .filter(usuario -> usuario.getRol() != null && usuario.getRol().getId_rol() == rolId)
+	        .toList();
+	}
 
 	@Override
 	public void flush() {
